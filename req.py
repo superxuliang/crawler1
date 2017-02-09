@@ -1,8 +1,9 @@
 
 
-
-#from bs4 import BeautifulSoup
+from xlutils import *
+from bs4 import BeautifulSoup
 import requests
+import sys
 
 
 class Seri:
@@ -13,6 +14,9 @@ class Spider:
 	def __init__(self,cfgCrawler = None):
 		self.cfgCrawler = cfgCrawler
 		self.text = None
+		self.url = None
+		self.encoding = None
+		self.r = None
 		pass
 
 	def init(self,cfgCrawler):
@@ -20,27 +24,45 @@ class Spider:
 		##a
 		pass 
 
-	def crawl( url, params):
-		r = requests.post(url)
-		self.text = r.text
-		
+	def crawl(self, url, params = None):
+		log("url:")
+		log(url)
+
+		self.r = requests.get(url)
+
+		self.text = self.r.text
+		self.url = self.r.url
+		self.encoding = self.r.encoding
+
+	def json():
+		return (self.r.json())
+
+	def getChildPages():
+		pass
 
 
-
-def test():
+def test(argv):
 
 
 	spider = Spider()
-	spider.crawl("http://movie.douban.com")
+	spider.crawl(argv[1])
+	#print(spider)
+	log("=========")
+	log(spider.text)
 
-	print(spider.text)
+	f = open(argv[2],"w")
+
+	f.write(spider.text.encode("utf-8"))
+	f.close()
 
 
 
 
+def main(argv):
+	print(argv)
+	test(argv)
 
-def main():
-	test()
+
+main(sys.argv)
 
 
-	
