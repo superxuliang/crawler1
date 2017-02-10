@@ -56,6 +56,12 @@ def test(argv):
 	f.close()
 
 
+def test1(argv):
+	bs = BeautifulSoup("\n".join(open("a.txt").readlines()), "lxml")
+	links = bs.find_all(attrs={"href":re.compile("subject")})
+	##>>> type(links[0])
+	##<class 'bs4.element.Tag'>
+	#links[1].attrs["href"]
 
 
 def main(argv):

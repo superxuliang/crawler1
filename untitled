@@ -1,0 +1,7 @@
+
+
+class SQLQueue (Queue)
+	def __init__(self,queue_name):
+		import MySQLdb
+
+
